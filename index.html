@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <link rel="stylesheet" href="./main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="https://cdn2.iconfinder.com/data/icons/ios7-inspired-mac-icon-set/512/Calculator_512.png" type="image/x-icon">
+</head>
+
+<body>
+    <div class="container">
+        <form action="" name="val" class="calculator">
+            <input type="text" name="ans" class="value" disabled id="print" />
+            <input type="text" name="ans" class="value" disabled id="result" />
+            <br />
+            <div class="row">
+                <input type="button" class="number col c-6 color-pink" onclick="clr()" value="AC">
+                <input type="button" class="number col c-3" onclick="deleteArray()" value="DEL">
+                <input type="button" class="number col c-3" onclick="displayValue('/')" value="/">
+                <input type="button" class="number col c-3" onclick="displayValue('7')" value="7">
+                <input type="button" class="number col c-3" onclick="displayValue('8')" value="8">
+                <input type="button" class="number col c-3" onclick="displayValue('9')" value="9">
+                <input type="button" class="number col c-3" onclick="displayValue('*')" value="*">
+                <input type="button" class="number col c-3" onclick="displayValue('4')" value="4">
+                <input type="button" class="number col c-3" onclick="displayValue('5')" value="5">
+                <input type="button" class="number col c-3" onclick="displayValue('6')" value="6">
+                <input type="button" class="number col c-3" onclick="displayValue('-')" value="-">
+                <input type="button" class="number col c-3" onclick="displayValue('1')" value="1">
+                <input type="button" class="number col c-3" onclick="displayValue('2')" value="2">
+                <input type="button" class="number col c-3" onclick="displayValue('3')" value="3">
+                <input type="button" class="number col c-3" onclick="displayValue('+')" value="+">
+                <input type="button" class="number col c-6" onclick="displayValue('0')" value="0">
+                <input type="button" class="number col c-3" onclick="displayValue('.')" value=".">
+                <input type="button" class="number col c-3" onclick="sum()" value="=">
+            </div>
+        </form>
+    </div>
+
+    <script>
+        clr = () => {
+            document.getElementById('print').value = "";
+            document.getElementById('result').value = "";
+        }
+
+        checkToPrint = (val) => {
+            if (val >= 0 && val <= 9 || val == '.') {
+                document.getElementById('print').value += val;
+            } else {
+                document.getElementById('print').value += ' ' + val + ' ';
+            }
+        }
+
+        displayValue = (val) => {
+            if (document.getElementById('print').value !== '') {
+                checkToPrint(val);
+            } else {
+                if (val > 0 && val <= 9 || val == '.' || val == '-') {
+                    document.getElementById('print').value += val;
+                }
+            }
+            if (document.getElementById('result').value !== '') {
+                if (val >= 0 && val <= 9 || val == '.') {
+                    document.getElementById('result').value = '';
+                    document.getElementById('print').value = val;
+                } else {
+                    document.getElementById('print').value = document.getElementById('result').value + ' ' + val + ' ';
+                    document.getElementById('result').value = '';
+                    if (document.getElementById('result').value !== '') {
+                        checkToPrint(val);
+                    }
+                }
+            }
+        }
+
+        sum = () => {
+            let x = document.getElementById('print').value;
+            let y = eval(x);
+            document.getElementById('result').value = y;
+        }
+
+        deleteArray = () => {
+            document.getElementById('result').value = '';
+            let x = document.getElementById('print').value;
+            let arr = Array.from(x);
+            arr.pop();
+            document.getElementById('print').value = arr.join('');
+        }
+    </script>
+</body>
+
+</html>
